@@ -17,11 +17,13 @@ const AgeCalculator = ({}: AgeCalculatorProps) => {
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     // console.log(e.target.value);
-    setLength(parseInt(e.target.value));
+    setLength(parseFloat(e.target.value));
   };
 
   return (
     <>
+      <EmptyDiv />
+      <p>단위 cm 입력</p>
       <input
         type="number"
         min="0"
@@ -29,12 +31,18 @@ const AgeCalculator = ({}: AgeCalculatorProps) => {
         step="0.001"
         onChange={handleChange}
         value={length}
+        inputMode="decimal"
       />
 
       <Result>
-        {result
+        {!!result
           ? result
-          : '50cm가 넘어가는 감성돔은 이 계산식으로 측정할 수 없습니다.'}
+          : '**50cm가 넘어가는 감성돔은 이 계산식으로 측정할 수 없습니다.'}
+        {/* {result
+          ? result > 0
+            ? result
+            : ''
+          : '**50cm가 넘어가는 감성돔은 이 계산식으로 측정할 수 없습니다.'} */}
       </Result>
     </>
   );
@@ -43,3 +51,8 @@ const AgeCalculator = ({}: AgeCalculatorProps) => {
 export default AgeCalculator;
 
 const Result = styled.p``;
+
+const EmptyDiv = styled.div`
+  height: 30px;
+  width: 20px;
+`;
